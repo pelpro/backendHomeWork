@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  rabbitMQ:
+    hostname: "rabbitMQ"
+    image: rabbitmq:alpine
+    expose:
+      - 5672
+  producer:
+    build: Producer
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitMQ
+  consumer:
+    build: Consumer
+    depends_on:
+      - rabbitMQ
+  
